@@ -47,6 +47,7 @@ end
 # sort an array of words by their last letter, e.g.
 # ['sky', 'puma', 'maker'] becomes ['puma', 'maker', 'sky']
 def array_sort_by_last_letter_of_word(array)
+	array.index(-1).sort
 end
 
 # cut strings in half, and return the first half, e.g.
@@ -67,6 +68,7 @@ def make_numbers_negative(number)
 		return number*-1
 	else
 		"Please provide a number greater or smaller than 0"
+	end
 end
 
 # turn an array of numbers into two arrays of numbers, one an array of
@@ -81,6 +83,7 @@ def separate_array_into_even_and_odd_numbers(array)
 		even.push(number)
 	elsif number.is? odd
 		odd.push(number)
+	end
 	return even, odd
 end
 
@@ -89,6 +92,8 @@ end
 # e.g. 'bob'. So in the array ['bob', 'radar', 'eat'], there
 # are 2 palindromes (bob and radar), so the method should return 2
 def number_of_elements_that_are_palindromes(array)
+	num = 0
+	return array.map{|x| if x == x.reverse num+=1}
 
 end
 
@@ -161,6 +166,7 @@ end
 # pairing up elements. e.g. ['a', 'b', 'c', 'd'] becomes
 # {'a' => 'b', 'c' => 'd'}
 def convert_array_to_a_hash(array)
+	return array.to_h
 
 end
 
@@ -169,20 +175,21 @@ end
 # . e.g. the array ['cat', 'dog', 'fish'] becomes
 # ['a', 'c', 'd', 'f', 'g', 'h', 'i', 'o', 's', 't']
 def get_all_letters_in_array_of_words(array)
-	array.chars.split
+	return array.chars.split
 end
 
 # swap the keys and values in a hash. e.g.
 # {'a' => 'b', 'c' => 'd'} becomes
 # {'b' => 'a', 'd' => 'c'}
 def swap_keys_and_values_in_a_hash(hash)
+	return hash.invert
 end
 
 # in a hash where the keys and values are all numbers
 # add all the keys and all the values together, e.g.
 # {1 => 1, 2 => 2} becomes 6
 def add_together_keys_and_values(hash)
-	hash.map{|x,y| x.join(y)}
+	return hash.map{|x,y| x.join(y).reduce(0,:+)}
 end
 
 # take out all the capital letters from a string
@@ -216,11 +223,13 @@ end
 # take a date and format it like dd/mm/yyyy, so Halloween 2013
 # becomes 31/10/2013
 def format_date_nicely(date)
+	date.strftime(%d, %m, %Y)
 end
 
 # get the domain name *without* the .com part, from an email address
 # so alex@makersacademy.com becomes makersacademy
 def get_domain_name_from_email_address(email)
+	return email.gsub(/.+@([^.]+).+/, '\1')
 end
 
 # capitalize the first letter in each word of a string,
@@ -229,22 +238,41 @@ end
 # 'the lion the witch and the wardrobe' becomes
 # 'The Lion the Witch and the Wardrobe'
 def titleize_a_string(string)
+	split = string.split
+	if split == "the" || split == "of" || split == "and"
+		return split
+	else
+		split.upcase
+	end
+	return split.join
 end
 
 # return true if a string contains any special characters
 # where 'special character' means anything apart from the letters
 # a-z (uppercase and lower) or numbers
 def check_a_string_for_special_characters(string)
+	if string.include? == "?<>',?[]}{=-)(*&^%$#`~{}"
+		return true
+	else
+		return false
+	end
 end
 
 # get the upper limit of a range. e.g. for the range 1..20, you
 # should return 20
 def get_upper_limit_of(range)
+	return range.max
 end
 
 # should return true for a 3 dot range like 1...20, false for a
 # normal 2 dot range
 def is_a_3_dot_range?(range)
+	return range.map do|x| if x.index(0) == 1 
+			return true 
+		else 
+			return false 
+		end
+	end
 end
 
 # get the square root of a number
@@ -254,6 +282,7 @@ end
 
 # count the number of words in a file
 def word_count_a_file(file_path)
+	return file_path.split.size
 end
 
 # --- tougher ones ---
@@ -262,19 +291,26 @@ end
 # called call_method_from_string('foobar')
 # the method foobar should be invoked
 def call_method_from_string(str_method)
+	return str_method
 end
 
 # return true if the date is a uk bank holiday for 2014
 # the list of bank holidays is here:
 # https://www.gov.uk/bank-holidays
 def is_a_2014_bank_holiday?(date)
+	if date == https://www.gov.uk/bank-holidays
+		return true
+	else
+		return false
+	end
 end
 
 # given your birthday this year, this method tells you
 # the next year when your birthday will fall on a friday
 # e.g. january 1st, will next be a friday in 2016
-# return the day as a capitalized string like 'Friday'
+# return the day as a capitalized string like 'Friday's
 def your_birthday_is_on_a_friday_in_the_year(birthday)
+	return birthday.strftime(%Y) when birthday.date.strftime(%d) == "Friday"
 end
 
 # in a file, total the number of times words of different lengths
@@ -283,12 +319,26 @@ end
 # and 1 that is 4 letters long. Return it as a hash in the format
 # word_length => count, e.g. {2 => 1, 3 => 5, 4 => 1}
 def count_words_of_each_length_in_a_file(file_path)
+	words = Hash.new(0)
+	file_path.each{|x| words[x] +=1}
+	return words
 end
 
 # implement fizzbuzz without modulo, i.e. the % method
 # go from 1 to 100
 # (there's no RSpec test for this one)
 def fizzbuzz_without_modulo
+	(1.100).each do |x|
+		f = x.modulo(3)
+		b = x.module (5)
+		puts case fizz
+		when f then "fizz"
+		when b then "buzz"
+		when f and b then "fizzbuzz"
+		else x
+			
+		end
+	end
 end
 
 # print the lyrics of the song 99 bottles of beer on the wall
@@ -318,4 +368,4 @@ def ninety_nine_bottles_of_beer
 		end
 	end
 end
-ninety_nine_bottles_of_beer
+
